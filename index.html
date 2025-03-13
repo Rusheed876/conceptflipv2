@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="flip.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="turn.min.js"></script>
+</head>
+<body>
+    <div class="content">
+        <div class="flip-holder">
+        <div id="flipbook">
+            <div class="hards"> <img src="https://themecaverse.net/wp-content/uploads/2025/03/MECA-LOGO-e1673910810325.png" alt="A beautiful fjord landscape" /> </div>
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f4f4; color: #333;">
+                <div>
+                    <h2>Unstoppable: Vybz Kartel Reclaims His Crown</h1>
+        
+                    <p >Dancehall legend Vybz Kartel has swiftly reasserted his dominance in the dancehall scene, solidifying his reputation as the most talked-about artist in the industry. His return after serving 13 years in prison has been nothing short of extraordinary, with fans and critics alike celebrating his unmatched influence in the genre.</p>
+                </div>
+                </div>
+            <img src="https://themecaverse.net/wp-content/uploads/2025/03/image_3-137.jpg.jpg" alt="A beautiful fjord landscape" />
+        <img src="https://themecaverse.net/wp-content/uploads/2025/03/487f67e3-7f72-442f-b300-00c1f1351b3f.jpg" alt="A scenic view of rocks and water" />
+        <img src="https://officialgarveygear.com/wp-content/uploads/2025/03/DtCvOR6W0AgI4_D-1.jpg" alt="A dense forest during the day" />
+        <img src="https://officialgarveygear.com/wp-content/uploads/2024/06/property-of-nobody-mockup.png" alt="Snowy mountains covered with snow" />
+        <img src="https://officialgarveygear.com/wp-content/uploads/2024/06/juneteenth-lifestyle-mockup.png" alt="A group of mountains in the distance" />
+        <img src="https://themecaverse.net/wp-content/uploads/2024/10/FINAL-Meca-awards-2025-new-1.jpg" alt="A cup of coffee on a table" />
+        <img src="https://themecaverse.net/wp-content/uploads/2023/02/MG_7885-scaled.jpg" alt="Colorful lights during a celebration" />
+            <div class="hard"></div>
+        </div>
+        </div>
+   
+<div class="nav-holder">
+    <button class="btn-nav" id="first"><<</button>
+    <button class="btn-nav" id="back"><</button>
+    <button class="btn-nav" id="next">></button>
+    <progress id="file" value="1" class="progress"></progress>
+</div>
+ </div>
+
+ <audio id="flip" src="mixkit-single-book-paging-1101_90OCreD3.wav" style="display: none;"  preload="auto"></audio>
+    <script type="text/javascript">
+
+const data = document.getElementById('flipbook').innerHTML;
+
+        function flipInitialize()
+        {
+            $("#flipbook").turn({
+                width: '100%',
+                height: '100%',
+                autoCenter: true,
+                display: 'single'
+            });
+        }
+
+        flipInitialize();
+
+
+        const back = document.querySelector('.btn-nav');
+        const progress = document.querySelector('#file');
+       
+
+        progress.max = $('#flipbook').turn('pages');
+        let changeS = false;
+        let changeM = false;
+        let changeL = false;
+
+        const audio = document.getElementById('flip');
+
+        $(window).resize(()=>
+    {
+                if ($(window).width() < 480 && !changeS) {
+                    $('#flipbook').turn('destroy');
+                    $( '#flipbook' ).html( data );
+                    flipInitialize();
+                    changeS = true;
+                    changeM = false;
+                    changeL = false;
+                }
+                else if ($(window).width() > 480 && $(window).width() < 768 && !changeM) {
+                    $('#flipbook').turn('destroy');
+                    $( '#flipbook' ).html( data );
+                    flipInitialize();
+                    changeS = false;
+                    changeM = true;
+                    changeL = false;
+                }
+                else if($(window).width() > 768 && $(window).width() < 1024 && !changeL) {
+                    $('#flipbook').turn('destroy');
+                    $( '#flipbook' ).html( data );
+                    flipInitialize();
+                    changeS = false;
+                    changeM = false;
+                    changeL = true;
+                }
+
+    });
+
+        
+
+
+
+
+        $('#first').click(() => $('#flipbook').turn('page', 1 ));
+        $("#back").click(()=> $("#flipbook").turn('previous'));
+        $("#next").click(()=> $("#flipbook").turn('next'));
+
+        $('#flipbook').on('turn', ()=> progress.value = $('#flipbook').turn('page'));
+
+        $('#flipbook').on('turn', ()=> {
+            audio.currentTime = 0;
+            audio.play();
+        });
+    </script>
+</body>
+</html>
